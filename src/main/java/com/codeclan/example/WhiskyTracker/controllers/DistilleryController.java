@@ -22,5 +22,10 @@ public class DistilleryController {
         return distilleryRepository.findDistilleryByRegion(region);
     }
 
+    @GetMapping("/whiskyage{age}")
+    public List<Distillery> findDistilleryWithWhiskyAge(@PathVariable Integer age){
+        return distilleryRepository.findDistilleryWithWhiskyAge(age);
+    }
+
 
 }
