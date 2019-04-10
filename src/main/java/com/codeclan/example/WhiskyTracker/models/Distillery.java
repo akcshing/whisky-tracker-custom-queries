@@ -1,6 +1,7 @@
 package com.codeclan.example.WhiskyTracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ public class Distillery {
 
     @Column(name = "region")
     private String region;
-    @JsonIgnore
+
+    @JsonIgnoreProperties("distillery")
     @OneToMany(mappedBy = "distillery", fetch = FetchType.LAZY)
     private List<Whisky> whiskies;
 

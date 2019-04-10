@@ -19,15 +19,14 @@ public class WhiskyRepositoryImpl implements WhiskyRepositoryCustom {
     EntityManager entityManager;
 
     @Transactional
-    public List<Whisky> findWhiskiesOfDistilleryByAge(Distillery distillery, int age){
+    public List<Whisky> findWhiskiesOfDistilleryByAge(Long id, Integer age){
         List<Whisky> result = null;
         Session session = entityManager.unwrap(Session.class);
         try{
             Criteria cr = session.createCriteria(Whisky.class);
-            cr.createAlias("distilleries", "distilleryAlias");
-            cr.createAlias("ages", "ageAlias");
-            cr.add(Restrictions.eq("distilleryAlias", distillery));
-            cr.add(Restrictions.eq("ageAlias", age));
+            cr.createAlias("distillery", "distilleryAlias");
+            cr.add(Restrictions.eq("distilleryAlias.id", id));
+            cr.add(Restrictions.eq("age", age));
             result = cr.list();
         } catch(HibernateException ex) {
             ex.printStackTrace();
